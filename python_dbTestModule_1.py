@@ -1,5 +1,5 @@
 import sqlite3
-#EDIT OF ELECTIVES DATA-BASE TO DRAFT DEMONSTRATE A BASIC BUS FLEET DATA-BASE
+#EDIT OF ELECTIVES DATA-BASE TO DRAFT DEMONSTRATE A BASIC TRANSPORT FLEET DATA-BASE
     #step 1: Setup SQL
 #---------------------------------------------------------------
     #Connects to the SQL lite DB (or it creates it if it does not exist)
