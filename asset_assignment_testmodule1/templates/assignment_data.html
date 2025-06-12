@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function toggleDesc(id) {
+            const desc = document.getElementById('desc-' + id);
+            desc.style.display = (desc.style.display === 'none') ? 'table-row' : 'none';
+        }
+    </script>
+</head>
+<body>
+    <h2>All Assignments / Callouts</h2>
+    <table>
+        <tr>
+            <th>ID</th><th>Title</th><th>Location</th><th>Requirements</th><th>Description</th>
+        </tr>
+        {% for a in assignments %}
+            <tr>
+                <td>{{ a[0] }}</td>
+                <td>{{ a[1] }}</td>
+                <td>{{ a[3] }}</td>
+                <td>{{ a[4] }}</td>
+                <td>  <!-- below is expression from Jinja2: 'a' is a row from assignments.db, 'a[O]' is id of first, '{{a[0]}}' replaced with required id value when flask renders the html table -->
+                    <button onclick="toggleDesc('{{ a[0] }}')">Show/Hide</button> 
+                    <button class="edit-btn" onclick="location.href='/assignment_edit/{{ a[0] }}'">Edit</button>
+                    <button class="delete-btn" onclick="location.href='/assignment_delete/{{ a[0] }}'">Delete</button>
+                </td>
+            </tr>
+            <tr id="desc-{{ a[0] }}" style="display:none;">
+                <td colspan="5"><strong>Description:</strong> {{ a[2] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <button onclick="location.href='/'">Home</button>
+</body>
+</html>
