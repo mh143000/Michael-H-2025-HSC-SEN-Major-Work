@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ 'Edit' if asset else 'Add' }} Asset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>{{ 'Edit' if asset else 'Add New' }} Asset</h2>
+    <form action="{{ url_for('submit') if not asset else url_for('edit', asset_id=asset[0]) }}" method="post">
+        <label>Unit:</label>
+        <input type="text" name="unit" value="{{ asset[1] if asset else '' }}" required><br><br>
+
+        <label>Type:</label>
+        <input type="text" name="type" value="{{ asset[2] if asset else '' }}" required><br><br>
+
+        <label>Identifier:</label>
+        <input type="text" name="identifier" value="{{ asset[3] if asset else '' }}" required><br><br>
+
+        <input type="submit" value="{{ 'Update' if asset else 'Submit' }}">
+    </form>
+    <button onclick="location.href='/'">Home</button>
+</body>
+</html>

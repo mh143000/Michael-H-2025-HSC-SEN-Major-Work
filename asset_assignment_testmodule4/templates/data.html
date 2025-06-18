@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asset Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Asset Records</h2>
+    <table>
+        <tr>
+            <th>Status</th><th>ID</th><th>Unit</th><th>Type</th><th>Identifier</th><th>Actions</th>
+        </tr>
+        {% for a in assets %}
+            <tr>
+                <td>
+                    {% set status = asset_status.get(a[0], '🟠 Unassigned') %}
+                    <span class="{% if '🟢' in status %}status-green{% else %}status-orange{% endif %}">{{ status }}</span>
+                </td>
+                <td>{{ a[0] }}</td>
+                <td>{{ a[1] }}</td>
+                <td>{{ a[2] }}</td>
+                <td>{{ a[3] }}</td>
+                <td>
+                    <button class="edit-btn" onclick="location.href='/edit/{{ a[0] }}'">Edit</button>
+                    <button class="delete-btn" onclick="location.href='/delete/{{ a[0] }}'">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <button onclick="location.href='/'">Home</button>
+</body>
+</html>

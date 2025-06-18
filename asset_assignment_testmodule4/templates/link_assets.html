@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Link Assets to Assignments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2 style="text-align: center;">Assign Asset to Assignment</h2>
+
+    <div class="nav">
+        <button onclick="window.location.href='/'">Home</button>
+    </div>
+    <br>
+
+    <form method="post">
+        <label for="asset_id">Select Asset:</label>
+        <select name="asset_id" required>
+            {% for a in assets %}
+                <option value="{{ a[0] }}">{{ a[1] }} - {{ a[2] }} ({{ a[3] }})</option>
+            {% endfor %}
+        </select>
+
+        <label for="assignment_id">Select Assignment:</label>
+        <select name="assignment_id" required>
+            {% for ass in assignments %}
+                <option value="{{ ass[0] }}">{{ ass[1] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button type="submit">Link</button>
+    </form>
+
+    <hr>
+
+    <h3>Currently Linked Assets</h3>
+    <table>
+        <tr>
+            <th>Asset</th>
+            <th>Assignment</th>
+            <th>Location</th> <!-- index 3 for 'location' -->
+            <th>Action</th>
+        </tr>
+        {% for link in links %}
+            <tr>
+                <td>{{ assets[link[0]][1] }} - {{ assets[link[0]][2] }} ({{ assets[link[0]][3] }})</td>
+                <td>{{ assignments[link[1]][1] }}</td>
+                <td>{{ assignments[link[1]][3] }}</td> <!-- accesses the assignment location (index 3) -->
+                <td>
+                    <form action="/unlink_asset/{{ link[0] }}" method="post" style="display:inline;">
+                        <button type="submit">Unlink</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
